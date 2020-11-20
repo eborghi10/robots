@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="i2cpwm_board" type="i2cpwm_board" name="i2cpwm_board" required="true"/>
+    <node pkg="servo_move_keyboard" type="servoMoveKeyboard.py" name="servo_move_keyboard" output="screen"/>
+</launch>
