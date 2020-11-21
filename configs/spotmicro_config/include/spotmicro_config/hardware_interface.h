@@ -14,7 +14,6 @@
 #include <controller_manager/controller_manager.h>
 #include <ros/ros.h>
 #include <ros/callback_queue.h>
-#include <tr1cpp/tr1.h>
 #include <spotmicro_config/hardware.h>
 
 #include <i2cpwm_board/i2cpwm_lib.h>
@@ -38,7 +37,6 @@ namespace ROBOT_hardware_interface
             void write(const ros::Time& time, const ros::Duration& elapsed_time);
 
         protected:
-            tr1cpp::TR1 TR1;
             std::unique_ptr<I2cPWMLib> pwm_controller;
             ros::NodeHandle nh_;
             ros::NodeHandle pnh_;

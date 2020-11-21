@@ -4,7 +4,6 @@
 #include <joint_limits_interface/joint_limits.h>
 #include <joint_limits_interface/joint_limits_urdf.h>
 #include <joint_limits_interface/joint_limits_rosparam.h>
-#include <tr1cpp/tr1.h>
 
 using namespace hardware_interface;
 using joint_limits_interface::JointLimits;
@@ -76,8 +75,6 @@ namespace ROBOT_hardware_interface
 
     void ROBOTHardwareInterface::read(const ros::Time& time, const ros::Duration& elapsed_time) {
         for (int i = 0; i < num_joints_; i++) {
-            // TODO: THIS APPROACH SHOULD WORK
-            // joint_position_[i] = TR1.getJoint(joint_names_[i]).readAngle();
             joint_position_[i] = joint_position_command_[i];
         }
     }
@@ -92,16 +89,6 @@ namespace ROBOT_hardware_interface
             //     continue;
 
             // previous_command_[i] = joint_position_command_[i];
-
-            /*
-            tr1cpp::Joint joint = TR1.getJoint(joint_names_[i]);
-            double effort = joint_effort_command_[i];
-
-            // Only for servos
-            double previousEffort = joint.getPreviousEffort();
-            effort += previousEffort;
-            joint.actuate(effort, 15);  // To update getPreviousEffort()
-            */
 
             double k = 1.0;
             if(joint_names_[i].find("left") != std::string::npos) k = -1.0;
