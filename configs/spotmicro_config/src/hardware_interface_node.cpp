@@ -1,13 +1,15 @@
 #include <chrono>
 
+#include <controller_manager/controller_manager.h>
 #include <ros/callback_queue.h>
+#include <ros/ros.h>
 
 #include <spotmicro_config/hardware_interface.h>
 
 typedef std::chrono::duration<double> duration_t;
 typedef std::chrono::system_clock::time_point time_point_t;
 
-void update(ROBOT_hardware_interface::ROBOTHardwareInterface &hw, 
+void update(spotmicro_hardware_interface::SpotHardwareInterface &hw, 
             controller_manager::ControllerManager &cm, 
             time_point_t &last_time) {
     // Get change in time
@@ -36,18 +38,18 @@ int main(int argc, char** argv)
     ros::CallbackQueue queue;
     ros::AsyncSpinner spinner(2, &queue);
 
-    ROBOT_hardware_interface::ROBOTHardwareInterface rhi(node_handle, private_node_handle);
+    spotmicro_hardware_interface::SpotHardwareInterface shi(node_handle, private_node_handle);
     
-    controller_manager::ControllerManager controller_manager(&rhi, node_handle);
+    controller_manager::ControllerManager controller_manager(&shi, node_handle);
 
     time_point_t last_time = std::chrono::system_clock::now();
 
     double loop_hz;
     node_handle.param("hardware_interface/loop_hz", loop_hz, 0.1);
-    ROS_DEBUG_STREAM_NAMED("hardware_interface", "Using loop frequency of " << loop_hz << " Hz");
+    ROS_INFO_STREAM_NAMED("hardware_interface", "Using loop frequency of " << loop_hz << " Hz");
     ros::TimerOptions control_timer(
         ros::Duration(1.0/loop_hz),
-        std::bind(update, std::ref(rhi), std::ref(controller_manager), std::ref(last_time)),
+        std::bind(update, std::ref(shi), std::ref(controller_manager), std::ref(last_time)),
         &queue
     );
     ros::Timer non_realtime_loop = node_handle.createTimer(control_timer);
