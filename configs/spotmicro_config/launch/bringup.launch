@@ -8,7 +8,7 @@
     <arg name="gazebo"                 default="false" /> <!-- Set to true during simulation. This is auto-set to true from gazebo.launch. -->
     <arg name="rviz"                   default="true"/> <!-- Set to true to run rviz in parallel. -->
     <arg name="rviz_ref_frame"         default="base_footprint"/> <!-- Default RVIZ reference frame. -->
-    <arg name="has_imu"                default="false" /> <!-- Set to true if you want to visualize robot but there's no IMU. Only useful for microcontrollers. -->
+    <arg name="has_imu"                default="true" /> <!-- Set to true if you want to visualize robot but there's no IMU. Only useful for microcontrollers. -->
     <arg name="lite"                   default="false" /> <!-- Set to true if you're using CHAMP lite version. Only useful for microcontrollers. -->
     <arg name="close_loop_odom"        default="false" /> <!-- Set to true if you want to calculate odometry using close loop. This is auto-set to true from gazebo.launch. -->
     <arg name="publish_foot_contacts"  default="false" /> <!-- Set to true if you want the controller to publish the foot contact states. This is auto-set to false from gazebo.launch. -->
@@ -42,7 +42,8 @@
     
     <group if="$(arg hardware_connected)">
         <node pkg="tf2_ros" type="static_transform_publisher" name="base_link_to_laser" args="0 0 0 0 0 0 $(arg frame_prefix)base_link $(arg frame_prefix)laser" />
-        <node pkg="tf2_ros" type="static_transform_publisher" name="base_link_to_imu"   args="0 0 0 0 0 0 $(arg frame_prefix)base_link $(arg frame_prefix)imu_link" />
-        <include file="$(find spotmicro_config)/launch/position_controllers.launch"/>
+        <node pkg="tf2_ros" type="static_transform_publisher" name="base_link_to_imu"   args="-0.02 0.04 0 -1.57 0 0 $(arg frame_prefix)base_link $(arg frame_prefix)imu_link" />
+        <include file="$(find spotmicro_config)/launch/include/position_controllers.launch"/>
+        <include file="$(find spotmicro_config)/launch/include/imu.launch" if="$(arg has_imu)"/>
     </group>
 </launch>
