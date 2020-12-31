@@ -18,5 +18,3 @@
           - rear_right_shoulder
           - rear_right_leg
           - rear_right_foot
-
-      # Servomotors have inner control loops so PIDs are not needed

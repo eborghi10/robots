@@ -1,0 +1,14 @@
+gazebo_ros_control:
+  pid_gains:
+    front_left_shoulder  : {p: 400, i: 1, d: 0.05}
+    front_left_leg       : {p: 400, i: 1, d: 0.05}
+    front_left_foot      : {p: 400, i: 1, d: 0.05}
+    front_right_shoulder : {p: 400, i: 1, d: 0.05}
+    front_right_leg      : {p: 400, i: 1, d: 0.05}
+    front_right_foot     : {p: 400, i: 1, d: 0.05}
+    rear_left_shoulder   : {p: 400, i: 1, d: 0.05}
+    rear_left_leg        : {p: 400, i: 1, d: 0.05}
+    rear_left_foot       : {p: 400, i: 1, d: 0.05}
+    rear_right_shoulder  : {p: 400, i: 1, d: 0.05}
+    rear_right_leg       : {p: 400, i: 1, d: 0.05}
+    rear_right_foot      : {p: 400, i: 1, d: 0.05}

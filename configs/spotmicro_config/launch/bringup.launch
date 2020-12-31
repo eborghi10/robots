@@ -1,5 +1,5 @@
 <launch>
-    <arg name="robot_name"              default="/"/>  <!-- Change this for namespacing. -->
+    <arg name="robot_name"             default="/"/>  <!-- Change this for namespacing. -->
     <arg name="base_frame"             default="base_link"/> <!-- Link name of floating base. Do not touch this. -->
     <arg name="joints_map_file"        default="$(find spotmicro_config)/config/joints/joints.yaml"/> <!--Path to list of joint names. Do not touch this. -->
     <arg name="links_map_file"         default="$(find spotmicro_config)/config/links/links.yaml"/> <!-- Path to list of link names. Do not touch this. -->
